@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Generate Voucher Mikrotik + Cetak</title>
+<link rel="stylesheet" type="text/css" href="simplegrid.css" />
+<style>
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+			.content {
+				background: #ccc;
+				padding: 10px;
+				border-style: solid;
+				border-width: 1px;
+			}
+			.vocer {
+			padding: 5px;
+			text-align:center;
+			
+			}
+			.us {
+			width:100%;
+			display: block;
+			border-bottom: 1px dotted #000;
+			}
+		</style>
+</head>
+
+<body>
+<script type="text/javascript">
+function randomStringUser(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+function randomStringPass(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+var alfabet = '0123456789abcdefghijklmnopqrstuvwxyz';
+var jumlah = 15; // jumlah voucher
+var user = [];
+var pass = [];
+var i = 0;
+var j = 0;
+var k = 0;
+ 
+	
+    while (i < jumlah) {
+		user[i] = randomStringUser(4, alfabet);
+		pass[i] = randomStringPass(4, alfabet);
+       
+        i++;
+    }
+	document.write('<span class="no-print">');
+	document.write('/ip hotspot user<br>');
+	while (j < jumlah) {
+		document.write('add limit-uptime=1h name='+user[j]+' password='+pass[j]+'<br>');       
+        j++;
+    }
+	document.write('</span>');
+	
+	//cetak
+	document.write('<div class="grid grid-pad">');   
+	while (k < jumlah) {
+		
+	
+		
+		document.write('<div class="col-1-5 vocer"><div class="content"><span class="us">'+user[k]+'</span>'+pass[k]+'</div></div>');
+		
+		
+		
+        k++;
+    }
+    document.write('</div>');   
+</script>
+
+</body>
+</html>
